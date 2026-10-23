@@ -15,11 +15,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 	const allPosts = await getAllPosts();
 	const allPostsByDate = allPosts.sort(collectionDateSort);
 	const uniqueTags = getUniqueTags(allPosts).slice(0, MAX_TAGS);
-	const pinnedPosts = allPostsByDate
-		.values()
-		.filter((p) => p.data.pinned)
-		.take(MAX_PINNED_POSTS)
-		.toArray();
+	const pinnedPosts = allPostsByDate.filter((p) => p.data.pinned).slice(0, MAX_PINNED_POSTS);
 	return paginate(allPostsByDate, {
 		pageSize: MAX_POSTS_PER_PAGE,
 		props: { uniqueTags, pinnedPosts },
@@ -35,8 +31,8 @@ interface Props {
 const { page, uniqueTags, pinnedPosts } = Astro.props;
 
 const meta = {
-	description: "Read my collection of posts and the things that interest me",
-	title: "Posts",
+	description: "浏览机场导航、机场推荐、机场梯子及稳定机场全量测评与指南文章归档",
+	title: "全部文章｜机场导航与测评文章归档",
 };
 
 const paginationProps = {
@@ -60,7 +56,7 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 
 <PageLayout meta={meta}>
 	<div class="mb-12 flex items-center gap-3">
-		<h1 class="title">Posts</h1>
+		<h1 class="title">机场推荐、机场梯子与稳定机场指南汇总</h1>
 		<a class="text-accent" href="/rss.xml" target="_blank">
 			<span class="sr-only">RSS feed</span>
 			<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="mdi:rss" />

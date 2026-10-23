@@ -1,0 +1,48 @@
+---
+import { type CollectionEntry } from "astro:content";
+import PostPreview from "@/components/blog/PostPreview.astro";
+import { getAllPosts } from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
+import { collectionDateSort } from "@/utils/date";
+
+const allPosts = await getAllPosts();
+const servicePosts = allPosts
+	.filter((p) => p.data.tags.includes("服务资料"))
+	.sort(collectionDateSort) as CollectionEntry<"post">[];
+---
+
+<PageLayout
+	meta={{
+		title: "服务资料｜机场订阅说明与资料卡参数读法",
+		description: "介绍通用订阅协议结构、资料卡指标读法、流量消耗日志核验、加油包补充方案及本站中立核验周期。链接回 /airport-recommend/。",
+	}}
+>
+	<header class="mb-10 border-b border-border pb-6">
+		<div class="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent mb-2">
+			📑 资料与订阅管理
+		</div>
+		<h1 class="text-2xl font-bold tracking-tight text-accent-2 sm:text-3xl mb-3">
+			机场服务资料：机场推荐订阅说明、用量核验与安全设置
+		</h1>
+		<p class="text-xs text-muted leading-relaxed">
+			汇集通用订阅格式常识、资料卡参数解读、后台用量明细追踪与 2FA 两步验证防御建议。完整 28 家机场资料集请随时返回
+			<a href="/airport-recommend/" class="text-accent underline font-semibold">机场推荐核心主页</a> 查验。
+		</p>
+	</header>
+
+	<section class="mb-12">
+		<h2 class="text-lg font-bold text-accent-2 mb-6 flex items-center justify-between">
+			<span>📚 机场推荐服务资料与梯子说明指南 ({servicePosts.length})</span>
+			<span class="text-xs text-muted">包含 6 篇档案科普</span>
+		</h2>
+		<ul class="space-y-4" role="list">
+			{
+				servicePosts.map((p) => (
+					<li class="grid gap-1 sm:grid-cols-[auto_1fr] border-b border-border/40 pb-3">
+						<PostPreview post={p} />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</PageLayout>

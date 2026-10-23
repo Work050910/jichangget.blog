@@ -1,0 +1,55 @@
+---
+import { type CollectionEntry } from "astro:content";
+import PostPreview from "@/components/blog/PostPreview.astro";
+import { getAllPosts } from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
+import { collectionDateSort } from "@/utils/date";
+
+const allPosts = await getAllPosts();
+const ladderPosts = allPosts
+	.filter((p) => p.data.tags.includes("机场梯子"))
+	.sort(collectionDateSort) as CollectionEntry<"post">[];
+---
+
+<PageLayout
+	meta={{
+		title: "机场梯子｜机场梯子推荐与套餐性价比对比",
+		description: "机场梯子频道重点探讨套餐性价比、协议适配、设备并发规则、晚高峰自测方法与订阅安全。所有内容自然内链回 /airport-recommend/ 核心主页。",
+	}}
+>
+	<header class="mb-10 border-b border-border pb-6">
+		<div class="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent mb-2">
+			🪜 梯子专题频道
+		</div>
+		<h1 class="text-2xl font-bold tracking-tight text-accent-2 sm:text-3xl mb-3">
+			机场梯子：机场推荐套餐性价比、协议适配与稳定机场核对
+		</h1>
+		<p class="text-xs text-muted leading-relaxed">
+			深入解析不同付费周期风险、多端并发风控、节点倍率计费表与工单售后沟通标准。我们拒绝无脑吹捧，始终倡导通过小额月付建立可靠的通信备用体系。想要核对全量梯子价格与专属优惠码，请查阅
+			<a href="/airport-recommend/" class="text-accent underline font-semibold">机场推荐主页面</a>。
+		</p>
+	</header>
+
+	<section class="mb-10 rounded-xl border border-border bg-card p-5 shadow-sm">
+		<h2 class="text-sm font-bold text-accent-2 mb-2">💡 机场梯子与稳定机场选购核心准则</h2>
+		<p class="text-xs text-muted leading-relaxed">
+			避免直接大额年付；重点核查自然月还是订单日重置；关注并发设备数；理解晚高峰物理拥塞规律。
+		</p>
+	</section>
+
+	<section class="mb-12">
+		<h2 class="text-lg font-bold text-accent-2 mb-6 flex items-center justify-between">
+			<span>📚 机场梯子与稳定机场精选指南 ({ladderPosts.length})</span>
+			<span class="text-xs text-muted">包含 14 篇对比解析</span>
+		</h2>
+		<ul class="space-y-4" role="list">
+			{
+				ladderPosts.map((p) => (
+					<li class="grid gap-1 sm:grid-cols-[auto_1fr] border-b border-border/40 pb-3">
+						<PostPreview post={p} />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</PageLayout>

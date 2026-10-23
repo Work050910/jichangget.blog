@@ -1,84 +1,278 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 import PostPreview from "@/components/blog/PostPreview.astro";
-import Note from "@/components/note/Note.astro";
-import SocialList from "@/components/SocialList.astro";
 import { getAllPosts } from "@/data/post";
+import { AIRPORTS } from "@/data/airports";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
 
-// Posts
-const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
-const allPostsByDate = allPosts.sort(collectionDateSort) as CollectionEntry<"post">[];
-const latestPosts = allPostsByDate.slice(0, MAX_POSTS);
-
-// Pinned Posts, set to a max of 3;
-const MAX_PINNED_POSTS = 3;
-const pinnedPosts = allPostsByDate
-	.values()
-	.filter((p) => p.data.pinned)
-	.take(MAX_PINNED_POSTS)
-	.toArray();
-
-// Notes, set to a max of 5
-const MAX_NOTES = 5;
-const allNotes = await getCollection("note");
-const latestNotes = allNotes
-	.sort(collectionDateSort)
-	.slice(0, MAX_NOTES) as CollectionEntry<"note">[];
+const sortedPosts = allPosts.sort(collectionDateSort) as CollectionEntry<"post">[];
+const latestPosts = sortedPosts.slice(0, 10);
+const featuredAirports = AIRPORTS.slice(0, 5);
 ---
 
-<PageLayout meta={{ title: "Home" }}>
-	<section>
-		<h1 class="title mb-12">Hello World!</h1>
-		<p class="mb-4">
-			Hi, I’m a theme for Astro, a simple starter that you can use to create your website or blog.
-			If you want to know more about how you can customise me, add more posts, and make it your own,
-			click on the GitHub icon link below and it will take you to my repo.
+<PageLayout
+	meta={{
+		title: "机场导航｜机场推荐、机场梯子与稳定机场资料",
+		description: "集中查找机场推荐、机场梯子与服务资料。以 /airport-recommend/ 为全站核心，透明展示 28 家收录机场的套餐价格、专属优惠码、专线中转架构与购买前核验清单。",
+	}}
+>
+	<!-- Hero Section -->
+	<section class="mb-12 border-b border-border pb-10">
+		<div class="inline-block rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent mb-4">
+			🚀 纯静态 · 高性能 · 透明中立机场导航
+		</div>
+		<h1 class="text-2xl font-bold tracking-tight text-accent-2 sm:text-3xl mb-4 leading-tight">
+			机场导航：集中查找机场推荐、机场梯子与稳定机场服务资料
+		</h1>
+		<p class="text-base leading-relaxed text-muted mb-6">
+			面向希望通过机场导航快速找到机场推荐、机场梯子和稳定机场资料的中文读者。全站以
+			<a href="/airport-recommend/" class="text-accent underline font-semibold">/airport-recommend/</a>
+			为核心聚合入口，按推荐资料、机场梯子、服务规则和稳定性资料组织文章与入口；帮助读者从集中导航进入相应的机场资料、套餐说明、服务范围和购买前核对内容。
 		</p>
-		<SocialList />
+		<div class="flex flex-wrap gap-3">
+			<a
+				href="/airport-recommend/"
+				class="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-global-bg hover:opacity-90 transition shadow-sm"
+			>
+				🔍 查看全部 28 家机场推荐资料 &rarr;
+			</a>
+			<a
+				href="/stable-airport/"
+				class="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold hover:border-accent transition"
+			>
+				⚖️ 稳定机场评判标准
+			</a>
+			<a
+				href="/faq/"
+				class="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold hover:border-accent transition"
+			>
+				❓ 100 问答 FAQ
+			</a>
+		</div>
 	</section>
-	{
-		pinnedPosts.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title mb-6 text-xl">Pinned Posts</h2>
-				<ul class="space-y-4" role="list">
-					{pinnedPosts.map((p) => (
-						<li class="grid gap-1 sm:grid-cols-[auto_1fr]">
-							<PostPreview post={p} />
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
-	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
+
+	<!-- Quick Nav Category Cards -->
+	<section class="mb-14">
+		<h2 class="text-lg font-bold text-accent-2 mb-5 flex items-center gap-2">
+			<span>📂</span> 机场导航：机场推荐、机场梯子与稳定机场核心频道索引
+		</h2>
+		<div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
+			<a
+				href="/airport-recommend/"
+				class="group block p-4 rounded-xl border border-accent/40 bg-accent/5 hover:border-accent transition"
+			>
+				<div class="text-lg mb-1">🌟</div>
+				<h3 class="font-bold text-accent group-hover:underline text-sm sm:text-base">机场推荐主页</h3>
+				<p class="text-xs text-muted mt-1">28 家机场全维参数对照与优惠码</p>
+			</a>
+			<a
+				href="/airport-navigation/"
+				class="group block p-4 rounded-xl border border-border bg-card shadow-sm hover:border-accent transition"
+			>
+				<div class="text-lg mb-1">🧭</div>
+				<h3 class="font-bold text-global-text group-hover:text-accent text-sm sm:text-base">机场导航</h3>
+				<p class="text-xs text-muted mt-1">按场景与预算精准查找梯子入口</p>
+			</a>
+			<a
+				href="/airport-ladder/"
+				class="group block p-4 rounded-xl border border-border bg-card shadow-sm hover:border-accent transition"
+			>
+				<div class="text-lg mb-1">🪜</div>
+				<h3 class="font-bold text-global-text group-hover:text-accent text-sm sm:text-base">机场梯子</h3>
+				<p class="text-xs text-muted mt-1">梯子套餐横向性价比与协议适配</p>
+			</a>
+			<a
+				href="/stable-airport/"
+				class="group block p-4 rounded-xl border border-border bg-card shadow-sm hover:border-accent transition"
+			>
+				<div class="text-lg mb-1">🛡️</div>
+				<h3 class="font-bold text-global-text group-hover:text-accent text-sm sm:text-base">稳定机场</h3>
+				<p class="text-xs text-muted mt-1">专线架构与维护透明度客观评估</p>
+			</a>
+			<a
+				href="/service-rules/"
+				class="group block p-4 rounded-xl border border-border bg-card shadow-sm hover:border-accent transition"
+			>
+				<div class="text-lg mb-1">📜</div>
+				<h3 class="font-bold text-global-text group-hover:text-accent text-sm sm:text-base">服务规则</h3>
+				<p class="text-xs text-muted mt-1">AUP合理使用守则与并发防风控</p>
+			</a>
+			<a
+				href="/faq/"
+				class="group block p-4 rounded-xl border border-border bg-card shadow-sm hover:border-accent transition"
+			>
+				<div class="text-lg mb-1">💬</div>
+				<h3 class="font-bold text-global-text group-hover:text-accent text-sm sm:text-base">常见问题 FAQ</h3>
+				<p class="text-xs text-muted mt-1">100 个高频长尾问题三段式解答</p>
+			</a>
+		</div>
+	</section>
+
+	<!-- Featured Airports Grid -->
+	<section class="mb-14">
+		<div class="flex items-center justify-between mb-5">
+			<h2 class="text-lg font-bold text-accent-2 flex items-center gap-2">
+				<span>🏆</span> 机场推荐精选：热门机场梯子方案（含专属优惠码）
+			</h2>
+			<a href="/airport-recommend/" class="text-xs text-accent hover:underline font-semibold">
+				查看全部 28 家 &rarr;
+			</a>
+		</div>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			{
+				featuredAirports.map((apt) => (
+					<div class="rounded-xl border border-border bg-card p-5 flex flex-col justify-between hover:border-accent/60 transition shadow-sm">
+						<div>
+							<div class="flex items-center justify-between gap-2 mb-2">
+								<h3 class="font-bold text-base text-global-text">
+									<a href={`/posts/${apt.slug}/`} class="hover:text-accent hover:underline">
+										{apt.name}
+									</a>
+								</h3>
+								<span class="rounded bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent">
+									{apt.lineType}
+								</span>
+							</div>
+							<p class="text-xs text-muted mb-3 line-clamp-2 leading-relaxed">
+								{apt.tagline}
+							</p>
+							<div class="grid grid-cols-2 gap-2 text-xs py-2.5 border-y border-border/60 mb-3 bg-muted/5 px-2 rounded">
+								<div>
+									<span class="text-muted block">起步门槛：</span>
+									<span class="font-semibold text-accent">{apt.minPrice}</span>
+								</div>
+								<div>
+									<span class="text-muted block">专属优惠码：</span>
+									<span class="font-mono font-bold text-accent-2">{apt.promoCode}</span>
+								</div>
+							</div>
+							<div class="text-xs text-muted space-y-1 mb-4">
+								<div>🤖 <span class="text-global-text">{apt.aiSupport}</span></div>
+								<div>🎬 <span class="text-global-text">{apt.streaming}</span></div>
+							</div>
+						</div>
+						<div class="flex items-center gap-2 pt-2 border-t border-border/40">
+							<a
+								href={`/posts/${apt.slug}/`}
+								class="flex-1 text-center rounded border border-border py-1.5 text-xs font-medium hover:border-accent transition"
+							>
+								查看独立测评
+							</a>
+							<a
+								href={apt.affLink}
+								target="_blank"
+								rel="sponsored nofollow noopener noreferrer"
+								class="flex-1 text-center rounded bg-accent/90 hover:bg-accent text-global-bg py-1.5 text-xs font-bold transition"
+							>
+								官网注册 &rarr;
+							</a>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- Quick Lookup Table Preview for All 28 Airports -->
+	<section class="mb-14">
+		<div class="flex items-center justify-between mb-4">
+			<h2 class="text-lg font-bold text-accent-2 flex items-center gap-2">
+				<span>📊</span> 机场导航：全站 28 家稳定机场与梯子资料速查总表
+			</h2>
+			<span class="text-xs text-muted">最后核查：2026-10-16</span>
+		</div>
+		<div class="overflow-x-auto rounded-xl border border-border">
+			<table class="w-full text-left text-xs border-collapse">
+				<thead>
+					<tr class="border-b border-border bg-muted/10 font-semibold text-global-text">
+						<th class="p-3">机场名称</th>
+						<th class="p-3">起步价格</th>
+						<th class="p-3">线路架构</th>
+						<th class="p-3">优惠码</th>
+						<th class="p-3">专属测评</th>
+						<th class="p-3">官方入口</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-border/60">
+					{
+						AIRPORTS.map((apt) => (
+							<tr class="hover:bg-muted/5 transition">
+								<td class="p-3 font-semibold text-global-text">{apt.name}</td>
+								<td class="p-3 text-accent font-mono">{apt.minPrice}</td>
+								<td class="p-3">{apt.lineType}</td>
+								<td class="p-3 font-mono font-bold text-accent-2">{apt.promoCode}</td>
+								<td class="p-3">
+									<a href={`/posts/${apt.slug}/`} class="text-accent hover:underline">
+										阅读测评
+									</a>
+								</td>
+								<td class="p-3">
+									<a
+										href={apt.affLink}
+										target="_blank"
+										rel="sponsored nofollow noopener noreferrer"
+										class="inline-block rounded px-2 py-0.5 bg-accent/10 hover:bg-accent text-accent hover:text-global-bg font-semibold transition"
+									>
+										访问
+									</a>
+								</td>
+							</tr>
+						))
+					}
+				</tbody>
+			</table>
+		</div>
+		<p class="text-xs text-muted mt-2 text-right">
+			详细套餐阶梯与多维度筛选，请参阅
+			<a href="/airport-recommend/" class="text-accent underline font-semibold">机场推荐核心主页</a>。
+		</p>
+	</section>
+
+	<!-- Pre-purchase Checklist -->
+	<section class="mb-14 rounded-xl border border-border bg-card p-6 shadow-sm">
+		<h2 class="text-lg font-bold text-accent-2 mb-3 flex items-center gap-2">
+			<span>📋</span> 机场推荐与稳定机场：购买前 5 项核心自查法则
+		</h2>
+		<p class="text-xs text-muted mb-4">
+			为防止资金损失或不符合实际使用需求，建议每一位读者在最终支付前核对以下五个要点：
+		</p>
+		<ul class="space-y-2 text-xs text-muted list-disc list-inside">
+			<li><strong class="text-global-text">坚持小额月付测试</strong>：切勿首单直接大额年付，先用一个月时间实测本地宽带与晚高峰连通表现。</li>
+			<li><strong class="text-global-text">确认流量重置周期</strong>：核查账单是自然月 1 日重置还是订单日顺延 30 天，防止非预期断流。</li>
+			<li><strong class="text-global-text">核实并发设备上限</strong>：确认手机、电脑及家庭多端是否超出服务商允许的同时在线 IP 阈值。</li>
+			<li><strong class="text-global-text">辨明真实线路架构</strong>：区分公网中转与 IPLC/IEPL 专线，不盲目崇拜测速图或 Ping 值。</li>
+			<li><strong class="text-global-text">明确退款与工单支持</strong>：数字虚拟商品普遍不支持无条件退款，必须提前阅读其服务条款（AUP）。</li>
+		</ul>
+	</section>
+
+	<!-- Latest Blog Posts -->
+	<section class="mb-14">
+		<div class="flex items-center justify-between mb-6">
+			<h2 class="text-lg font-bold text-accent-2 flex items-center gap-2">
+				<span>📰</span> 机场推荐、机场梯子与稳定机场选购指南精选
+			</h2>
+			<a href="/posts/" class="text-xs text-accent hover:underline font-semibold">
+				查看全部文章 ({allPosts.length}) &rarr;
+			</a>
+		</div>
 		<ul class="space-y-4" role="list">
 			{
 				latestPosts.map((p) => (
-					<li class="grid gap-1 sm:grid-cols-[auto_1fr]">
+					<li class="grid gap-1 sm:grid-cols-[auto_1fr] border-b border-border/40 pb-3">
 						<PostPreview post={p} />
 					</li>
 				))
 			}
 		</ul>
 	</section>
-	{
-		latestNotes.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/notes/">Notes</a>
-				</h2>
-				<ul class="space-y-6" role="list">
-					{latestNotes.map((note) => (
-						<li>
-							<Note note={note} as="h3" isPreview />
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
+
+	<!-- Commercial Transparency & Disclaimer -->
+	<section class="rounded-xl border border-border/60 bg-muted/5 p-4 text-xs text-muted leading-relaxed">
+		<div class="font-semibold text-global-text mb-1">📢 机场导航商业透明度与免责声明</div>
+		<p>
+			本站包含推广邀请赞助链接（Affiliate Sponsored Links），当读者通过本站链接注册订阅时，我们可能会从合规订单中获得技术支持与运维佣金。本站测评坚持客观中立，所有价格与参数均定期根据公开渠道复核。跨境网络服务受国际光缆、骨干网及外部政策不可抗力影响，本站不承诺任何永久稳定或保证可用。请读者严格遵守当地法律法规。
+		</p>
+	</section>
 </PageLayout>

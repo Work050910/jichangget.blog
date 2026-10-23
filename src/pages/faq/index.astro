@@ -1,0 +1,114 @@
+---
+import { FAQS } from "@/data/faqs";
+import PageLayout from "@/layouts/Base.astro";
+
+const schemaJson = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: FAQS.map((f) => ({
+		"@type": "Question",
+		name: f.question,
+		acceptedAnswer: {
+			"@type": "Answer",
+			text: f.answer,
+		},
+	})),
+});
+---
+
+<PageLayout
+	meta={{
+		title: "常见问题 FAQ｜机场导航与稳定机场 100 问答",
+		description: "精选 100 个关于机场推荐、机场导航、机场梯子和稳定机场的高频问题与标准解答，覆盖线路架构、套餐重置、设备限制与防坑指南。",
+	}}
+>
+	<script is:inline type="application/ld+json" set:html={schemaJson} />
+
+	<header class="mb-10 border-b border-border pb-6">
+		<div class="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent mb-2">
+			💬 知识库 · 100 问答
+		</div>
+		<h1 class="text-2xl font-bold tracking-tight text-accent-2 sm:text-3xl mb-3">
+			常见问题 FAQ：机场推荐、机场导航、机场梯子与稳定机场 100 问答
+		</h1>
+		<p class="text-xs text-muted leading-relaxed">
+			涵盖导航入口、推荐标准、节点/套餐/流量/订阅说明、服务规则、维护信息、购买前资料核对、退款与支持边界及账号安全常识。每题严格遵循“直接结论—需核对的资料或条件—下一步阅读”结构，全面内链至
+			<a href="/airport-recommend/" class="text-accent underline font-semibold">机场推荐核心主页</a>。
+		</p>
+	</header>
+
+	<!-- Client-side Instant Filter & Search -->
+	<section class="mb-8">
+		<div class="relative">
+			<input
+				type="text"
+				id="faq-filter-input"
+				placeholder="🔍 快速搜索 100 个 FAQ（输入关键词、问题或答案，例如：专线、月付、退款、倍率）..."
+				class="w-full rounded-xl border border-border bg-card px-4 py-3 text-xs sm:text-sm text-global-text placeholder:text-muted focus:border-accent focus:outline-none transition shadow-sm"
+			/>
+		</div>
+		<div class="flex items-center justify-between text-xs text-muted mt-2 px-1">
+			<span id="faq-count-badge">显示全部 100 个问答</span>
+			<span class="text-accent">支持实时匹配</span>
+		</div>
+	</section>
+
+	<!-- FAQ List Accordion / Cards -->
+	<section class="space-y-4 mb-14" id="faq-container">
+		{
+			FAQS.map((f) => (
+				<article
+					class="faq-card rounded-xl border border-border bg-card p-4 sm:p-5 transition hover:border-accent/60 shadow-sm"
+					data-kw={f.keyword}
+					data-q={f.question}
+					data-a={f.answer}
+				>
+					<div class="flex items-start justify-between gap-3 mb-2">
+						<span class="font-mono text-xs font-bold text-accent px-2 py-0.5 rounded bg-accent/10">
+							#{String(f.id).padStart(3, "0")}
+						</span>
+						<span class="rounded border border-border/80 px-2 py-0.5 text-[11px] text-muted">
+							关键词：{f.keyword}
+						</span>
+					</div>
+					<h2 class="text-sm sm:text-base font-bold text-global-text mb-2.5 leading-snug">
+						{f.question}
+					</h2>
+					<p
+						class="text-xs text-muted leading-relaxed"
+						set:html={f.answer.replace(
+							/【机场推荐】\(\/airport-recommend\/\)/g,
+							'<a href="/airport-recommend/" class="text-accent underline font-semibold">【机场推荐】</a>'
+						)}
+					/>
+				</article>
+			))
+		}
+	</section>
+
+	<script>
+		const input = document.getElementById("faq-filter-input") as HTMLInputElement;
+		const container = document.getElementById("faq-container")!;
+		const countBadge = document.getElementById("faq-count-badge")!;
+		const cards = container?.querySelectorAll<HTMLElement>(".faq-card");
+
+		input?.addEventListener("input", (e) => {
+			const q = (e.target as HTMLInputElement).value.trim().toLowerCase();
+			let visible = 0;
+			cards?.forEach((card) => {
+				const kw = card.getAttribute("data-kw")?.toLowerCase() || "";
+				const ques = card.getAttribute("data-q")?.toLowerCase() || "";
+				const ans = card.getAttribute("data-a")?.toLowerCase() || "";
+				if (!q || kw.includes(q) || ques.includes(q) || ans.includes(q)) {
+					card.style.display = "block";
+					visible++;
+				} else {
+					card.style.display = "none";
+				}
+			});
+			if (countBadge) {
+				countBadge.textContent = q ? `找到 ${visible} 个匹配问答` : `显示全部 100 个问答`;
+			}
+		});
+	</script>
+</PageLayout>

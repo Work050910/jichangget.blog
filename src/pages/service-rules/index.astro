@@ -1,0 +1,48 @@
+---
+import { type CollectionEntry } from "astro:content";
+import PostPreview from "@/components/blog/PostPreview.astro";
+import { getAllPosts } from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
+import { collectionDateSort } from "@/utils/date";
+
+const allPosts = await getAllPosts();
+const rulesPosts = allPosts
+	.filter((p) => p.data.tags.includes("服务规则"))
+	.sort(collectionDateSort) as CollectionEntry<"post">[];
+---
+
+<PageLayout
+	meta={{
+		title: "服务规则｜机场合理使用条款 AUP 与防风控指南",
+		description: "系统梳理合理使用条款（AUP）、多设备并发判定、退款争议解决渠道、账号闲置策略与线路割接公告规范。内链回 /airport-recommend/ 核心页。",
+	}}
+>
+	<header class="mb-10 border-b border-border pb-6">
+		<div class="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent mb-2">
+			📜 规则与合规指南
+		</div>
+		<h1 class="text-2xl font-bold tracking-tight text-accent-2 sm:text-3xl mb-3">
+			机场服务规则：稳定机场合理使用规范、并发限制与退款条款
+		</h1>
+		<p class="text-xs text-muted leading-relaxed">
+			阅读服务规则是保障个人订阅长期稳定、避免非预期封号的关键环节。本频道拆解合理使用条款、设备数判定逻辑、工单响应时效及争议化解之道。核对各服务商具体条款与优惠码，请访问
+			<a href="/airport-recommend/" class="text-accent underline font-semibold">机场推荐核心主页</a>。
+		</p>
+	</header>
+
+	<section class="mb-12">
+		<h2 class="text-lg font-bold text-accent-2 mb-6 flex items-center justify-between">
+			<span>📚 稳定机场服务规则与维护信息解读指南 ({rulesPosts.length})</span>
+			<span class="text-xs text-muted">包含 10 篇实操指引</span>
+		</h2>
+		<ul class="space-y-4" role="list">
+			{
+				rulesPosts.map((p) => (
+					<li class="grid gap-1 sm:grid-cols-[auto_1fr] border-b border-border/40 pb-3">
+						<PostPreview post={p} />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</PageLayout>

@@ -5,9 +5,9 @@
 	"private": false,
 	"scripts": {
 		"postinstall": "npm rebuild sharp --force",
-		"dev": "astro dev",
-		"start": "astro dev",
-		"build": "astro build",
+		"dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+		"start": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+		"build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
 		"postbuild": "pagefind --site dist",
 		"preview": "astro preview",
 		"check": "astro check && biome check",

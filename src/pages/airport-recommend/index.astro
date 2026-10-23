@@ -1,0 +1,329 @@
+---
+import { AIRPORTS } from "@/data/airports";
+import PageLayout from "@/layouts/Base.astro";
+
+const lastUpdated = "2026 年 10 月 16 日";
+---
+
+<PageLayout
+	meta={{
+		title: "机场推荐｜机场梯子、稳定机场与服务资料导航",
+		description: "全站核心机场推荐聚合大页。系统收录 28 家主流机场资料卡，涵盖 IPLC 专线、中转优化、专属优惠码、最低月付阶梯、AI 与流媒体解锁状况及购买前自查清单。",
+	}}
+>
+	<!-- Header & H1 -->
+	<header class="mb-10 border-b border-border pb-8">
+		<div class="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent mb-3">
+			⭐ 全站唯一核心聚合页
+		</div>
+		<h1 class="text-2xl font-bold tracking-tight text-accent-2 sm:text-3xl mb-4">
+			机场推荐｜机场梯子、稳定机场与服务资料导航
+		</h1>
+		<div class="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-muted mb-4">
+			<span>⏱️ <strong>最后实质核查时间：</strong> {lastUpdated}</span>
+			<span>🛡️ <strong>测评范围：</strong> 全网 28 家公开运营机场</span>
+			<span>🏷️ <strong>计费核算口径：</strong> 常规月付与折算均价</span>
+		</div>
+		<p class="text-sm text-muted leading-relaxed">
+			本页面是 <a href="/" class="text-accent underline">jichangget.blog</a> 的全站核心枢纽，汇总整理了全网 28 家正在运营的机场梯子全维资料。所有参数均依据服务商公开条款、结算控制台与用户实际反馈进行结构化归集。我们绝不承诺“永久稳定”或“永不掉线”，仅从<strong>线路接入架构、月付测试门槛、节点冗余能力、AI/流媒体兼容性及运维公告透明度</strong>五个维度提供中立参考。
+		</p>
+	</header>
+
+	<!-- Quick Anchors Navigation -->
+	<nav aria-label="页面快速锚点" class="mb-12 rounded-xl border border-border bg-card p-4 shadow-sm">
+		<div class="text-xs font-bold text-accent-2 mb-2 flex items-center gap-1.5">
+			<span>📌</span> 目录快速直达锚点：
+		</div>
+		<div class="flex flex-wrap gap-2 text-xs">
+			<a href="#quick-filter" class="rounded border border-border px-2.5 py-1 hover:border-accent transition">🎯 推荐资料分类</a>
+			<a href="#dossier-cards" class="rounded border border-border px-2.5 py-1 hover:border-accent transition">🗂️ 28 家机场独立资料卡</a>
+			<a href="#matrix-table" class="rounded border border-border px-2.5 py-1 hover:border-accent transition">📊 横向参数对比矩阵表</a>
+			<a href="#stability-guide" class="rounded border border-border px-2.5 py-1 hover:border-accent transition">🛡️ 稳定机场评估准则</a>
+			<a href="#reviews-directory" class="rounded border border-border px-2.5 py-1 hover:border-accent transition">📝 独立测评直达</a>
+			<a href="#faq" class="rounded border border-border px-2.5 py-1 hover:border-accent transition">💬 核心 FAQ</a>
+			<a href="#changelog" class="rounded border border-border px-2.5 py-1 hover:border-accent transition">🔄 历史更新记录</a>
+		</div>
+	</nav>
+
+	<!-- Section 1: Classification Filters -->
+	<section id="quick-filter" class="mb-14">
+		<h2 class="text-xl font-bold text-accent-2 mb-4 flex items-center gap-2">
+			<span>🎯</span> 机场推荐资料分类：按核心特征筛选机场梯子
+		</h2>
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+			<div class="rounded-xl border border-border bg-card p-4 shadow-sm">
+				<div class="text-lg mb-1.5">⚡</div>
+				<h3 class="font-bold text-sm text-global-text mb-1">IPLC / IEPL 内网专线</h3>
+				<p class="text-xs text-muted mb-2 leading-relaxed">端到端不过公网防火墙，极低丢包与低时延抖动，晚高峰表现相对稳定。</p>
+				<div class="text-xs text-accent font-semibold">代表：极连云、速界、可信云、隐形人、梯子云</div>
+			</div>
+			<div class="rounded-xl border border-border bg-card p-4 shadow-sm">
+				<div class="text-lg mb-1.5">🌐</div>
+				<h3 class="font-bold text-sm text-global-text mb-1">BGP 优质中转与负载均衡</h3>
+				<p class="text-xs text-muted mb-2 leading-relaxed">三网多入口自动优化调度，兼顾大流量与经济性，性价比极高。</p>
+				<div class="text-xs text-accent font-semibold">代表：U1S1、光速云、唯兔云、快狸、灵动云</div>
+			</div>
+			<div class="rounded-xl border border-border bg-card p-4 shadow-sm">
+				<div class="text-lg mb-1.5">🤖</div>
+				<h3 class="font-bold text-sm text-global-text mb-1">AI 生产力与开发优化</h3>
+				<p class="text-xs text-muted mb-2 leading-relaxed">纯净出口 IP，低风控，重点支持 ChatGPT、Claude 及开发环境调用。</p>
+				<div class="text-xs text-accent font-semibold">代表：边缘节点、浪网、全球云、极连云</div>
+			</div>
+			<div class="rounded-xl border border-border bg-card p-4 shadow-sm">
+				<div class="text-lg mb-1.5">🎬</div>
+				<h3 class="font-bold text-sm text-global-text mb-1">4K/8K 晚高峰影音流媒体</h3>
+				<p class="text-xs text-muted mb-2 leading-relaxed">大带宽冗余，原生 IP 解锁 Netflix、Disney+、YouTube 4K 流畅起播。</p>
+				<div class="text-xs text-accent font-semibold">代表：暮光加速、速界、二猫云、FlyV</div>
+			</div>
+			<div class="rounded-xl border border-border bg-card p-4 shadow-sm">
+				<div class="text-lg mb-1.5">💰</div>
+				<h3 class="font-bold text-sm text-global-text mb-1">高性价比轻量自用与备用</h3>
+				<p class="text-xs text-muted mb-2 leading-relaxed">月付门槛 10-20 元，适合文字办公、学术检索或常备应急副线。</p>
+				<div class="text-xs text-accent font-semibold">代表：飞猫云 (7元起)、快狸 (10元起)、无忧链接</div>
+			</div>
+			<div class="rounded-xl border border-border bg-card p-4 shadow-sm">
+				<div class="text-lg mb-1.5">📦</div>
+				<h3 class="font-bold text-sm text-global-text mb-1">一次性不限时流量包</h3>
+				<p class="text-xs text-muted mb-2 leading-relaxed">无每月固定扣费压力，随用随扣，适合长期极低频备选方案。</p>
+				<div class="text-xs text-accent font-semibold">代表：SOGO云、光速云、唯兔云、Firefly</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section 2: All 28 Airport Dossier Cards -->
+	<section id="dossier-cards" class="mb-14">
+		<div class="flex items-center justify-between mb-6">
+			<h2 class="text-xl font-bold text-accent-2 flex items-center gap-2">
+				<span>🗂️</span> 机场推荐核心档案：全部已收录 28 家稳定机场资料卡
+			</h2>
+			<span class="text-xs text-muted">包含各家专属优惠码</span>
+		</div>
+		<div class="space-y-6">
+			{
+				AIRPORTS.map((apt, index) => (
+					<article class="rounded-xl border border-border bg-card p-5 sm:p-6 hover:border-accent/70 transition shadow-sm">
+						<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-border/60">
+							<div class="flex items-center gap-2.5">
+								<span class="flex h-6 w-6 items-center justify-center rounded-full bg-accent/20 text-xs font-mono font-bold text-accent">
+									{String(index + 1).padStart(2, "0")}
+								</span>
+								<h3 class="text-lg font-bold text-global-text">
+									<a href={`/posts/${apt.slug}/`} class="hover:text-accent hover:underline">
+										{apt.name}
+									</a>
+								</h3>
+							</div>
+							<div class="flex items-center gap-2">
+								<span class="rounded bg-accent/15 px-2.5 py-1 text-xs font-semibold text-accent">
+									{apt.lineType}
+								</span>
+								<span class="rounded border border-border px-2 py-0.5 text-xs text-muted">
+									{apt.protocol}
+								</span>
+							</div>
+						</div>
+
+						<p class="text-xs text-muted mt-3 mb-4 leading-relaxed">
+							{apt.tagline}
+						</p>
+
+						<!-- Key Parameters Grid -->
+						<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 rounded-lg bg-muted/10 p-3 text-xs mb-4">
+							<div>
+								<span class="text-muted block text-[11px]">最低门槛：</span>
+								<span class="font-bold text-accent">{apt.minPrice}</span>
+							</div>
+							<div>
+								<span class="text-muted block text-[11px]">专属优惠码：</span>
+								<span class="font-mono font-bold text-accent-2">{apt.promoCode}</span>
+							</div>
+							<div>
+								<span class="text-muted block text-[11px]">AI 工具兼容：</span>
+								<span class="text-global-text">{apt.aiSupport}</span>
+							</div>
+							<div>
+								<span class="text-muted block text-[11px]">流媒体支持：</span>
+								<span class="text-global-text">{apt.streaming}</span>
+							</div>
+						</div>
+
+						<!-- Target Audience & Notes -->
+						<div class="text-xs space-y-1.5 text-muted mb-4">
+							<div><strong class="text-global-text">适合人群：</strong> {apt.audience}</div>
+							<div><strong class="text-global-text">核对提示：</strong> {apt.notes}</div>
+						</div>
+
+						<!-- Action CTAs -->
+						<div class="flex flex-wrap items-center gap-3 pt-3 border-t border-border/40 text-xs">
+							<a
+								href={`/posts/${apt.slug}/`}
+								class="rounded-lg border border-border px-4 py-2 font-medium hover:border-accent hover:text-accent transition"
+							>
+								📖 阅读全文测评与套餐表
+							</a>
+							<a
+								href={apt.affLink}
+								target="_blank"
+								rel="sponsored nofollow noopener noreferrer"
+								class="rounded-lg bg-accent px-4 py-2 font-bold text-global-bg hover:opacity-90 transition shadow-sm"
+							>
+								🚀 前往官方注册（结算输入 {apt.promoCode}）&rarr;
+							</a>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- Section 3: Full Comparison Table -->
+	<section id="matrix-table" class="mb-14">
+		<h2 class="text-xl font-bold text-accent-2 mb-4 flex items-center gap-2">
+			<span>📊</span> 机场推荐与稳定机场：28 家机场梯子横向核心参数矩阵对比表
+		</h2>
+		<div class="overflow-x-auto rounded-xl border border-border">
+			<table class="w-full text-left text-xs border-collapse min-w-[700px]">
+				<thead>
+					<tr class="border-b border-border bg-muted/20 font-semibold text-global-text">
+						<th class="p-3">机场名称</th>
+						<th class="p-3">最低起步价</th>
+						<th class="p-3">线路架构</th>
+						<th class="p-3">优惠代码</th>
+						<th class="p-3">AI / 流媒体支持</th>
+						<th class="p-3">测评档案</th>
+						<th class="p-3">官方直达</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-border/60">
+					{
+						AIRPORTS.map((apt) => (
+							<tr class="hover:bg-muted/5 transition">
+								<td class="p-3 font-bold text-global-text">{apt.name}</td>
+								<td class="p-3 font-mono text-accent">{apt.minPrice}</td>
+								<td class="p-3">{apt.lineType}</td>
+								<td class="p-3 font-mono font-bold text-accent-2">{apt.promoCode}</td>
+								<td class="p-3 text-muted max-w-[200px] truncate">{apt.aiSupport}</td>
+								<td class="p-3">
+									<a href={`/posts/${apt.slug}/`} class="text-accent underline font-semibold">
+										评测详情
+									</a>
+								</td>
+								<td class="p-3">
+									<a
+										href={apt.affLink}
+										target="_blank"
+										rel="sponsored nofollow noopener noreferrer"
+										class="rounded px-2.5 py-1 bg-accent/15 text-accent hover:bg-accent hover:text-global-bg font-bold transition"
+									>
+										入口
+									</a>
+								</td>
+							</tr>
+						))
+					}
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<!-- Section 4: Stability Evaluation Guide -->
+	<section id="stability-guide" class="mb-14 rounded-xl border border-border bg-card p-6 shadow-sm">
+		<h2 class="text-xl font-bold text-accent-2 mb-3 flex items-center gap-2">
+			<span>🛡️</span> 稳定机场客观评估准则与梯子服务规则核对
+		</h2>
+		<div class="text-xs text-muted leading-relaxed space-y-3">
+			<p>
+				在跨境网络生态中，任何声称“100% 永不掉线、永久稳定、绝对可用”的宣传均为虚假营销或极不负责任的承诺。本站对“稳定机场”的定义建立在<strong>可核查的工程架构与运维透明度</strong>基础之上：
+			</p>
+			<ul class="list-disc list-inside space-y-1.5 text-global-text">
+				<li><strong>线路冗余与多入口调度</strong>：考察服务商是否在华东、华南、华北部署了多线 BGP 接入，遇到局部网络波动能否自动化平滑割接。</li>
+				<li><strong>晚高峰丢包与时延稳定性</strong>：在 20:00 - 23:00 全网流量高峰期，专线与优质中转应保持可用的丢包容限，不出现断崖式死锁。</li>
+				<li><strong>运维公告与历史记录</strong>：成熟团队会在割接前提前 24 小时发出站内信通知，并在突发不可抗力海缆中断时主动说明抢修进展。</li>
+				<li><strong>合理使用与防滥用机制</strong>：禁止 BT、高频扫描等恶意行为，保护同节点邻居环境不受清退连累。</li>
+			</ul>
+			<p>
+				详细的稳定性量化评估标准，请参阅 <a href="/stable-airport/" class="text-accent underline font-semibold">稳定机场专题指南</a>。
+			</p>
+		</div>
+	</section>
+
+	<!-- Section 5: Directory of 28 Reviews -->
+	<section id="reviews-directory" class="mb-14">
+		<h2 class="text-xl font-bold text-accent-2 mb-4 flex items-center gap-2">
+			<span>📝</span> 机场推荐测评导航：28 家机场独立评测目录直达
+		</h2>
+		<div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+			{
+				AIRPORTS.map((apt) => (
+					<a
+						href={`/posts/${apt.slug}/`}
+						class="rounded-lg border border-border/80 bg-card p-2.5 hover:border-accent hover:text-accent transition flex items-center justify-between shadow-sm"
+					>
+						<span class="font-medium text-global-text">{apt.name}</span>
+						<span class="text-[10px] text-muted">&rarr;</span>
+					</a>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- Section 6: Core FAQ -->
+	<section id="faq" class="mb-14">
+		<h2 class="text-xl font-bold text-accent-2 mb-5 flex items-center gap-2">
+			<span>💬</span> 机场推荐核心常见问题（FAQ）：机场导航与稳定机场核对
+		</h2>
+		<div class="space-y-4 text-xs">
+			<div class="rounded-xl border border-border p-4 bg-card shadow-sm">
+				<h3 class="font-bold text-global-text text-sm mb-2">Q1：为什么所有机场资料都需要对照本推荐主页面？</h3>
+				<p class="text-muted leading-relaxed">
+					单一服务商测评容易脱离整体横向对比，而核心聚合页提供了统一度量衡与最新核验时间。读者需核对各个服务商的实际交付节点、倍率规则以及客服支持边界，以防因孤立信息产生误判。更多详细对比维度与已收录机场卡片，请参考核心主页【机场推荐】(/airport-recommend/)中的结构化指引。
+				</p>
+			</div>
+			<div class="rounded-xl border border-border p-4 bg-card shadow-sm">
+				<h3 class="font-bold text-global-text text-sm mb-2">Q2：本站生成的专属优惠码如何保证真实有效？</h3>
+				<p class="text-muted leading-relaxed">
+					本站整理了各家服务商官方提供的专属优惠码；对于暂未配置现成优惠码的平台，依据规则配置了拼音首字母专属代码。下单前务必在结算页核对折扣是否已扣减，具体细则以服务商当前活动为准。更多优惠码及核验状态请常态化关注【机场推荐】(/airport-recommend/)。
+				</p>
+			</div>
+			<div class="rounded-xl border border-border p-4 bg-card shadow-sm">
+				<h3 class="font-bold text-global-text text-sm mb-2">Q3：为什么反复强调新手第一单必须选择月付？</h3>
+				<p class="text-muted leading-relaxed">
+					优先月付能将外部网络波动或服务商运营变动的潜在资金风险降到最低。在支付前务必核对当月实际到账流量、节点倍率是否如实生效，以及是否支持灵活取消续费，观察至少一个周期。若想查看各家服务商公开的最低月付门槛与套餐梯度，请查阅【机场推荐】(/airport-recommend/)。
+				</p>
+			</div>
+		</div>
+		<div class="text-right mt-3">
+			<a href="/faq/" class="text-xs text-accent hover:underline font-semibold">
+				查看全部 100 问答 FAQ 专页 &rarr;
+			</a>
+		</div>
+	</section>
+
+	<!-- Section 7: Changelog -->
+	<section id="changelog" class="mb-14 rounded-xl border border-border bg-card p-5 text-xs shadow-sm">
+		<h2 class="text-base font-bold text-accent-2 mb-3 flex items-center gap-2">
+			<span>🔄</span> 机场推荐核心聚合页更新记录（Changelog）
+		</h2>
+		<ul class="space-y-2 text-muted border-l border-border pl-4">
+			<li>
+				<span class="text-accent font-semibold">2026-10-16：</span>
+				全面上线 28 家机场结构化资料卡，补充专属优惠码映射（含拼音首字母规则）；更新晚高峰专线与中转分类标准。
+			</li>
+			<li>
+				<span class="text-accent font-semibold">2026-10-12：</span>
+				全站框架完成 Astro + Cactus 极简静态迁移，配置 Pagefind 纯静态搜索索引，全站移动端交互深度优化。
+			</li>
+		</ul>
+	</section>
+
+	<!-- Section 8: CTA & Affiliate Disclosure -->
+	<footer class="rounded-xl border border-border/80 bg-muted/10 p-6 text-xs text-muted leading-relaxed">
+		<h3 class="font-bold text-global-text text-sm mb-2">📢 机场推荐与服务资料商业透明度披露</h3>
+		<p class="mb-3">
+			本站包含推广邀请赞助链接（Affiliate Sponsored Links）。当读者通过本页面各机场卡片的专属入口注册并订阅服务时，我们可能会从合规订单中获得运维佣金，用于保障本站服务器开销与资料的长期实质核验。我们绝不收取任何服务商的虚假竞价排名费用，所有数据与限制均公开披露。
+		</p>
+		<p>
+			请在选购前仔细核对服务商当前的合理使用规则（AUP）、退款说明及在线并发限制。如有疑问，可通过各专属测评页面留言或查阅 <a href="/service-rules/" class="text-accent underline font-semibold">服务规则专题</a>。
+		</p>
+	</footer>
+</PageLayout>

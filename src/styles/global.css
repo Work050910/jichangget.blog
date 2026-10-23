@@ -16,72 +16,94 @@
 @property --color-global-bg {
 	syntax: "<color>";
 	inherits: true;
-	initial-value: oklch(98.48% 0 0);
+	initial-value: #f8fafc;
 }
 @property --color-global-text {
 	syntax: "<color>";
 	inherits: true;
-	initial-value: oklch(26.99% 0.0096 235.05);
+	initial-value: #334155;
 }
 @property --color-muted {
 	syntax: "<color>";
 	inherits: true;
-	initial-value: oklch(44.6% 0.03 256.802);
+	initial-value: #64748b;
 }
 @property --color-link {
 	syntax: "<color>";
 	inherits: true;
-	initial-value: oklch(55.44% 0.0431 185.69);
+	initial-value: #0284c7;
 }
 @property --color-accent {
 	syntax: "<color>";
 	inherits: true;
-	initial-value: oklch(55.27% 0.195 19.06);
+	initial-value: #0284c7;
 }
 @property --color-accent-2 {
 	syntax: "<color>";
 	inherits: true;
-	initial-value: oklch(18.15% 0 0);
+	initial-value: #0f172a;
 }
 @property --color-quote {
 	syntax: "<color>";
 	inherits: true;
-	initial-value: oklch(55.27% 0.195 19.06);
+	initial-value: #0284c7;
+}
+@property --color-border {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #e2e8f0;
+}
+@property --color-card {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #ffffff;
 }
 
-/* you could refactor below to use light-dark(), depending on your target audience */
 @theme {
-	--color-global-bg: oklch(98.48% 0 0);
-	--color-global-text: oklch(26.99% 0.0096 235.05);
-	--color-muted: oklch(44.6% 0.03 256.802);
-	--color-link: oklch(55.44% 0.0431 185.69);
-	--color-accent: oklch(55.27% 0.195 19.06);
-	--color-accent-2: oklch(18.15% 0 0);
-	--color-quote: oklch(55.27% 0.195 19.06);
+	--color-global-bg: #f8fafc;
+	--color-global-text: #334155;
+	--color-muted: #64748b;
+	--color-link: #0284c7;
+	--color-accent: #0284c7;
+	--color-accent-2: #0f172a;
+	--color-quote: #0284c7;
+	--color-border: #e2e8f0;
+	--color-card: #ffffff;
 }
 
 @layer base {
 	html {
-		color-scheme: light dark;
+		color-scheme: light;
 		accent-color: var(--color-accent);
 		scrollbar-gutter: stable;
 
 		&[data-theme="light"] {
 			color-scheme: light;
+			--color-global-bg: #f8fafc;
+			--color-global-text: #334155;
+			--color-muted: #64748b;
+			--color-link: #0284c7;
+			--color-accent: #0284c7;
+			--color-accent-2: #0f172a;
+			--color-quote: #0284c7;
+			--color-border: #e2e8f0;
+			--color-card: #ffffff;
 		}
 
 		&[data-theme="dark"] {
 			color-scheme: dark;
-			--color-global-bg: oklch(23.64% 0.0045 248);
-			--color-global-text: oklch(83.54% 0 264);
-			--color-muted: oklch(70.7% 0.022 261.325);
+			--color-global-bg: oklch(20% 0.0045 248);
+			--color-global-text: oklch(85% 0 264);
+			--color-muted: oklch(70% 0.022 261.325);
 			--color-link: oklch(70.44% 0.1133 349);
 			--color-accent: oklch(70.91% 0.1415 163.7);
-			--color-accent-2: oklch(94.66% 0 0);
+			--color-accent-2: oklch(95% 0 0);
 			--color-quote: oklch(94.8% 0.106 136.49);
+			--color-border: oklch(30% 0.008 248);
+			--color-card: oklch(24% 0.005 248);
 		}
 
-		--color-mode-transition-duration: 300ms;
+		--color-mode-transition-duration: 200ms;
 		--color-mode-transition-easing: ease-in-out;
 
 		transition:
@@ -91,7 +113,9 @@
 			--color-link var(--color-mode-transition-duration) var(--color-mode-transition-easing),
 			--color-accent var(--color-mode-transition-duration) var(--color-mode-transition-easing),
 			--color-accent-2 var(--color-mode-transition-duration) var(--color-mode-transition-easing),
-			--color-quote var(--color-mode-transition-duration) var(--color-mode-transition-easing);
+			--color-quote var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-border var(--color-mode-transition-duration) var(--color-mode-transition-easing),
+			--color-card var(--color-mode-transition-duration) var(--color-mode-transition-easing);
 	}
 
 	:target {
@@ -130,12 +154,12 @@
 
 @utility prose {
 	--tw-prose-body: var(--color-global-text);
-	--tw-prose-bold: var(--color-global-text);
-	--tw-prose-bullets: var(--color-global-text);
-	--tw-prose-code: var(--color-global-text);
+	--tw-prose-bold: var(--color-accent-2);
+	--tw-prose-bullets: var(--color-muted);
+	--tw-prose-code: var(--color-accent-2);
 	--tw-prose-headings: var(--color-accent-2);
-	--tw-prose-hr: 0.5px dashed #666;
-	--tw-prose-links: var(--color-global-text);
+	--tw-prose-hr: var(--color-border);
+	--tw-prose-links: var(--color-accent);
 	--tw-prose-quotes: var(--color-quote);
-	--tw-prose-th-borders: #666;
+	--tw-prose-th-borders: var(--color-border);
 }

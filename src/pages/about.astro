@@ -2,35 +2,73 @@
 import PageLayout from "@/layouts/Base.astro";
 
 const meta = {
-	description: "I'm a starter theme for Astro.build",
-	title: "About",
+	title: "关于本站｜机场导航、机场推荐与评测准则",
+	description: "jichangget.blog 是一个面向中文读者的纯静态机场导航与评测博客，以 /airport-recommend/ 为全站核心，坚持客观中立、透明披露与理性选购法则。",
 };
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="title mb-12">About</h1>
-	<div class="prose prose-sm prose-cactus max-w-none">
-		<p>
-			Hi, I’m a starter Astro. I’m particularly great for getting you started with your own blogging
-			website.
+	<header class="mb-10 border-b border-border pb-6">
+		<div class="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent mb-2">
+			ℹ️ 站点档案与评测准则
+		</div>
+		<h1 class="text-2xl font-bold tracking-tight text-accent-2 sm:text-3xl mb-3">
+			关于本站：机场导航、机场推荐、机场梯子与稳定机场评测准则
+		</h1>
+		<p class="text-xs text-muted leading-relaxed">
+			深入了解 jichangget.blog 的建站初衷、信息核验机制、商业合作透明度准则及免责声明。
 		</p>
-		<p>Here are my some of my awesome built in features:</p>
-		<ul class="list-inside list-disc" role="list">
-			<li>I'm ultra fast as I'm a static site</li>
-			<li>I'm fully responsive</li>
-			<li>I come with a light and dark mode</li>
-			<li>I'm easy to customise and add additional content</li>
-			<li>I have Tailwind CSS styling</li>
-			<li>Shiki code syntax highlighting</li>
-			<li>Satori for auto generating OG images for blog posts</li>
-		</ul>
-		<p>
-			Clone or fork my <a
-				class="cactus-link inline-block"
-				href="https://github.com/chrismwilliams/astro-cactus"
-				rel="noreferrer"
-				target="_blank">repo</a
-			> if you like me!
-		</p>
+	</header>
+
+	<div class="space-y-8 text-xs text-muted leading-relaxed">
+		<!-- Section 1 -->
+		<section class="rounded-xl border border-border bg-card p-5 shadow-sm">
+			<h2 class="text-base font-bold text-accent-2 mb-2.5">🎯 机场导航建站初衷与核心使命</h2>
+			<p class="mb-3">
+				在当前网络环境下，关于机场梯子与代理服务的公开讨论往往充斥着夸大其词的宣传、伪造的瞬时跑满测速图以及“永久可用、永不掉线”的非理性承诺。许多普通用户在花费数年高额年费后，往往面临中途跑路、节点大面积离线或售后失联的困境。
+			</p>
+			<p>
+				<strong>jichangget.blog</strong> 创立的核心目的，正是打破这种信息不对称。我们以纯静态技术搭建极简、快速、安全的导航博客，以 <a href="/airport-recommend/" class="text-accent underline font-semibold">【机场推荐核心聚合页】(/airport-recommend/)</a> 为中枢，将 28 家正在运营的主流服务商的套餐价格、专线/中转架构、流媒体与 AI 支持情况透明呈现，帮助读者建立科学的决策依据。
+			</p>
+		</section>
+
+		<!-- Section 2 -->
+		<section class="rounded-xl border border-border bg-card p-5 shadow-sm">
+			<h2 class="text-base font-bold text-accent-2 mb-2.5">⚖️ 稳定机场评测方法论与工程定义</h2>
+			<p class="mb-3">
+				我们坚决反对将任何民用代理服务宣传为“绝对稳定”。本站对“稳定机场”的评估严格局限于以下四个工程方向：
+			</p>
+			<ul class="list-disc list-inside space-y-1.5 text-global-text mb-3">
+				<li><strong>服务规则（AUP）与邻居保护</strong>：平台是否对 BT 滥用、爬虫扫描等行为实施严格风控，以保护机房落地不被连累封禁。</li>
+				<li><strong>节点资料与接入架构</strong>：真实区分公网中转与 IPLC/IEPL 专线，核验多地 BGP 入口容灾能力。</li>
+				<li><strong>维护信息与故障响应</strong>：考察官方公告渠道的更新透明度、割接通知提前量以及突发断流的恢复周期。</li>
+				<li><strong>购买前核对与试错成本</strong>：是否提供透明的月付测试门槛，是否清晰标注在线设备并发数与流量重置周期。</li>
+			</ul>
+		</section>
+
+		<!-- Section 3 -->
+		<section class="rounded-xl border border-border bg-card p-5 shadow-sm">
+			<h2 class="text-base font-bold text-accent-2 mb-2.5">📢 机场推荐商业披露与推广返利说明（Affiliate Disclosure）</h2>
+			<p class="mb-3">
+				本站秉持高度透明原则：全站部分指向第三方机场的注册链接包含商业推广代码（Affiliate Link）。当您通过本站链接注册并产生合规订阅时，服务商可能会向我们支付技术运维支持佣金。
+			</p>
+			<p>
+				需要特别强调的是：<strong>任何商业推广均不影响本站测评的客观中立性</strong>。所有收录机场均在同一度量衡下展示优缺点与核查提示，我们拒绝收取任何服务商的竞价排名费用，绝不伪造好评。所有商业外链在底层均严格标记 <code>rel="sponsored nofollow noopener noreferrer"</code>。
+			</p>
+		</section>
+
+		<!-- Section 4 -->
+		<section class="rounded-xl border border-border bg-card p-5 shadow-sm">
+			<h2 class="text-base font-bold text-accent-2 mb-2.5">🛡️ 机场导航法律边界与免责声明</h2>
+			<p class="mb-3">
+				1. 本站仅对公开发布于互联网的网络技术资料、服务商公开声明与通用网络知识进行科普整理，不参与任何第三方机场的实际服务器运营、技术维护或资金结算。
+			</p>
+			<p class="mb-3">
+				2. 跨境网络受海底光缆自然物理故障、国际出口骨干网路由调度及外部不可抗力多重影响，本站不为任何第三方服务的可用率、速度或退款纠纷承担法律责任。
+			</p>
+			<p>
+				3. 请广大读者在选购和使用网络工具时，严格遵守当地国家与地区的法律法规，自觉维护网络安全。
+			</p>
+		</section>
 	</div>
 </PageLayout>

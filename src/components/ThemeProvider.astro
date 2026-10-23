@@ -1,10 +1,13 @@
 {/* Inlined to avoid FOUC. This is a parser blocking script. */}
 <script is:inline>
-	const lightModePref = window.matchMedia("(prefers-color-scheme: light)");
-
 	function getUserPref() {
-		const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("theme");
-		return storedTheme || (lightModePref.matches ? "light" : "dark");
+		// Clean up any stale legacy 'dark' theme from old session
+		if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+			localStorage.removeItem("theme");
+		}
+		const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("site_theme");
+		// Default to light mode template
+		return storedTheme || "light";
 	}
 
 	function setTheme(newTheme) {
@@ -16,15 +19,10 @@
 
 		const root = document.documentElement;
 
-		// root already set to newTheme, exit early
-		if (newTheme === root.getAttribute("data-theme")) {
-			return;
-		}
-
 		root.setAttribute("data-theme", newTheme);
 
 		if (typeof localStorage !== "undefined") {
-			localStorage.setItem("theme", newTheme);
+			localStorage.setItem("site_theme", newTheme);
 		}
 	}
 
@@ -42,7 +40,4 @@
 	document.addEventListener("theme-change", (e) => {
 		setTheme(e.detail.theme);
 	});
-
-	// listen for prefers-color-scheme change.
-	lightModePref.addEventListener("change", (e) => setTheme(e.matches ? "light" : "dark"));
 </script>

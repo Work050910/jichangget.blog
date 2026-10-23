@@ -28,15 +28,15 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 	}}
 >
 	<article class="grow break-words" data-pagefind-body>
-		<div id="blog-hero" class="mb-12"><Masthead content={post} readingTime={readingTime} /></div>
-		<div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
-			{!!headings.length && <TOC headings={headings} />}
+		<div id="blog-hero" class="mb-10 pb-6 border-b border-border/40"><Masthead content={post} readingTime={readingTime} /></div>
+		<div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-between">
 			<div
-				class="prose prose-sm prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-muted prose-headings:hover:before:text-accent sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none"
+				class="prose prose-base sm:prose-lg max-w-none flex-1 min-w-0 prose-headings:font-bold prose-headings:text-accent-2 prose-headings:tracking-tight prose-a:text-accent prose-a:underline hover:prose-a:opacity-80 prose-table:border-collapse prose-table:w-full prose-th:bg-muted/15 prose-th:p-3 prose-td:p-3 prose-th:border prose-th:border-border prose-td:border prose-td:border-border/60 prose-th:text-global-text"
 			>
 				<slot />
 				<WebMentions />
 			</div>
+			{!!headings.length && <TOC headings={headings} />}
 		</div>
 	</article>
 	<button
