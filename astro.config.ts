@@ -29,8 +29,25 @@ export default defineConfig({
 		expressiveCode(expressiveCodeOptions),
 		icon(),
 		sitemap(),
+		{
+			name: "sitemap-alias",
+			hooks: {
+				"astro:build:done": async ({ dir }) => {
+					const sitemapIndexPath = new URL("sitemap-index.xml", dir);
+					const sitemapPath = new URL("sitemap.xml", dir);
+					if (fs.existsSync(sitemapIndexPath)) {
+						fs.copyFileSync(sitemapIndexPath, sitemapPath);
+					}
+				},
+			},
+		},
 		mdx(),
-		robotsTxt(),
+		robotsTxt({
+			sitemap: [
+				`${siteConfig.url}/sitemap.xml`,
+				`${siteConfig.url}/sitemap-index.xml`,
+			],
+		}),
 		webmanifest({
 			// See: https://github.com/alextim/astro-lib/blob/main/packages/astro-webmanifest/README.md
 			name: siteConfig.title,

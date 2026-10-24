@@ -8,7 +8,7 @@
 		"dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
 		"start": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
 		"build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
-		"postbuild": "pagefind --site dist",
+		"postbuild": "pagefind --site dist && node -e \"const fs=require('fs'); if(fs.existsSync('dist/sitemap-index.xml')) fs.copyFileSync('dist/sitemap-index.xml', 'dist/sitemap.xml');\"",
 		"preview": "astro preview",
 		"check": "astro check && biome check",
 		"lint": "biome check --write",
